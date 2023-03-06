@@ -137,7 +137,7 @@ const SidebarNewUsers = ({ open, toggleSidebar }) => {
               />
             )}
           />
-          <FormText color='muted'>You can use letters, numbers & periods</FormText>
+          <FormText color='muted'>Formato email</FormText>
         </div>        
         <div className='mb-1'>
           <Label className='form-label' for='avatarLink'>
@@ -156,7 +156,7 @@ const SidebarNewUsers = ({ open, toggleSidebar }) => {
               />
             )}
           />
-          <FormText color='muted'>You can use letters, numbers & periods</FormText>
+          <FormText color='muted'>Link a imagen en la nube</FormText>
         </div>
         <div className='mb-1'>
           <Label className='form-label' for='user-role'>

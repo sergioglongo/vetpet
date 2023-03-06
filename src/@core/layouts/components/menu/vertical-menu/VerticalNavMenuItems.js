@@ -28,7 +28,6 @@ const VerticalMenuNavItems = props => {
     return <TagName key={item.id || item.header} item={item} {...props} />
   })
   
-  console.log("Entra a VerticalMenuNavItems renderNavItems", RenderNavItems)
   return RenderNavItems
 }
 

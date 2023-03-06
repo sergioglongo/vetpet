@@ -20,7 +20,6 @@ export const getData = createAsyncThunk('appUsers/getData', async params => {
 
 export const getUser = createAsyncThunk('appUsers/getUser', async user => {
   // const response = await axios.get('/api/users/user', { id })
-  console.log("user en getuser", user)
   // const user = user.users.find(i => i.id === user.id)
 
   return user

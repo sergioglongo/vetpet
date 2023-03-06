@@ -47,6 +47,31 @@ export const apiUser = createApi({
                 }
             }),
             invalidatesTags:['allusers']
+        }),
+        putUser: builder.mutation({
+            query: (data) => ({
+                url: `putUser`,
+                method: 'POST',
+                body: {
+                    idUser: data.idUser,
+                    user: data.user,
+                    mailUser: data.mailUser,
+                    status: data.status,
+                    idTypeUser: data.idTypeUser
+                }
+            }),
+            invalidatesTags:['user', 'allusers']
+        }),
+        inactiveUser: builder.mutation({
+            query: (data) => ({
+                url: `putUser`,
+                method: 'POST',
+                body: {
+                    idUser: data.idUser,
+                    status: data.status
+                }
+            }),
+            invalidatesTags:['user', 'allusers']
         })
     })
 })
@@ -56,5 +81,7 @@ export const {
     useGetAllUsersQuery,
     useLazyGetAllUsersQuery,
     useCreateUserMutation,
-    useGetUserByIdQuery
+    useGetUserByIdQuery,
+    usePutUserMutation,
+    useInactiveUserMutation
 } = apiUser

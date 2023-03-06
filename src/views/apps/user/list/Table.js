@@ -194,6 +194,7 @@ const UsersList = () => {
           fullName: user.user,
           company: 'LongoDev',
           role: user.TypeUser.typeUser,
+          roleName: user.TypeUser.name,
           username: user.user,
           country: 'Argentina',
           contact: '(479) 232-9151',

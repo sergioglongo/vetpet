@@ -47,7 +47,7 @@ const renderRole = row => {
     },
     super: {
       class: 'text-danger',
-      icon: Slack
+      icon: Database
     }
   }
 
@@ -56,7 +56,7 @@ const renderRole = row => {
   return (
     <span className='text-truncate text-capitalize align-middle'>
       <Icon size={18} className={`${roleObj[row.role] ? roleObj[row.role].class : ''} me-50`} />
-      {row.role}
+      {row.roleName}
     </span>
   )
 }
