@@ -9,13 +9,13 @@ import StatsHorizontal from '@components/widgets/stats/StatsHorizontal'
 
 // ** Icons Imports
 import { User, UserPlus, UserCheck, UserX } from 'react-feather'
-import { useGetAllClientsQuery } from '../../../../queries/client/apiClient'
+import { useGetAllUsersQuery } from '../../../../queries/user/apiUser'
 
 // ** Styles
 import '@styles/react/apps/app-users.scss'
 
-const ClientList = () => {
-  const { data: dataClient } = useGetAllClientsQuery()
+const UsersList = () => {
+  const { data: dataUsers } = useGetAllUsersQuery()
 
   return (
     <div className='app-user-list'>
@@ -25,7 +25,7 @@ const ClientList = () => {
             color='primary'
             statTitle='Total de Usuarios'
             icon={<User size={20} />}
-            renderStats={<h3 className='fw-bolder mb-75'>{dataClient?.totalClients}</h3>}
+            renderStats={<h3 className='fw-bolder mb-75'>{dataUsers?.totalUsers}</h3>}
           />
         </Col>
         <Col lg='4' sm='6'>
@@ -33,7 +33,7 @@ const ClientList = () => {
             color='success'
             statTitle='Usuarios Activos'
             icon={<UserCheck size={20} />}
-            renderStats={<h3 className='fw-bolder mb-75'>{dataClient?.activeClients}</h3>}
+            renderStats={<h3 className='fw-bolder mb-75'>{dataUsers?.activeUsers}</h3>}
           />
         </Col>        
         <Col lg='4' sm='6'>
@@ -41,13 +41,13 @@ const ClientList = () => {
             color='warning'
             statTitle='Usuarios Inactivos'
             icon={<UserX size={20} />}
-            renderStats={<h3 className='fw-bolder mb-75'>{dataClient?.totalClients - dataClient?.activeClients}</h3>}
+            renderStats={<h3 className='fw-bolder mb-75'>{dataUsers?.totalUsers - dataUsers?.activeUsers}</h3>}
           />
         </Col>
       </Row>
-      <Table />
+      {/* <Table /> */}
     </div>
   )
 }
 
-export default ClientList
+export default UsersList

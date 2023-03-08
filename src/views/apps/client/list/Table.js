@@ -10,7 +10,7 @@ import { columns } from './columns'
 // ** Store & Actions
 import { getAllData, getData } from '../store'
 import { useDispatch, useSelector } from 'react-redux'
-import { useGetAllUsersQuery } from '../../../../queries/user/apiUser'
+import { useGetAllClientsQuery } from '../../../../queries/client/apiClient'
 
 // ** Third Party Components
 import Select from 'react-select'
@@ -29,9 +29,6 @@ import {
   Input,
   Label,
   Button,
-  CardBody,
-  CardTitle,
-  CardHeader,
   DropdownMenu,
   DropdownItem,
   DropdownToggle,
@@ -43,15 +40,7 @@ import '@styles/react/libs/react-select/_react-select.scss'
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 
 // ** Table Header
-const CustomHeader = ({ store, toggleSidebar, handlePerPage, rowsPerPage, handleFilter, searchTerm, currentRole, currentStatus, handleRole, handleStatus }) => {
-
-  const roleOptions = [
-    { value: '', label: 'Todos' },
-    { value: 'super', label: 'Supervisor' },
-    { value: 'admin', label: 'Administrativo' },
-    { value: 'client', label: 'Cliente' },
-    { value: 'vet', label: 'Veterinario' }
-  ]
+const CustomHeader = ({ store, toggleSidebar, handlePerPage, rowsPerPage, handleFilter, searchTerm, currentStatus, handleStatus }) => {
 
   const statusOptions = [
     { value: '', label: 'Todos', number: 0 },
@@ -113,18 +102,6 @@ const CustomHeader = ({ store, toggleSidebar, handlePerPage, rowsPerPage, handle
             type='text'
             value={searchTerm}
             onChange={e => handleFilter(e.target.value)}
-          />
-        </Col>
-        <Col md='4'>
-          <Label for='role-select'>Role</Label>
-          <Select
-            isClearable={false}
-            value={currentRole}
-            options={roleOptions}
-            className='react-select'
-            classNamePrefix='select'
-            theme={selectThemeColors}
-            onChange={handleRole}
           />
         </Col>
         <Col md='4'>
@@ -209,19 +186,17 @@ const UsersList = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [sortColumn, setSortColumn] = useState('id')
   const [rowsPerPage, setRowsPerPage] = useState(10)
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [currentRole, setCurrentRole] = useState({ value: '', label: 'Todos' })
   const [currentStatus, setCurrentStatus] = useState({ value: '', label: 'Todos', number: 0 })
-  const { data: dataUsers, isSuccess: isSuccessUsers } = useGetAllUsersQuery()
+  const { data: dataClients, isSuccess: isSuccessClients } = useGetAllClientsQuery()
+
   const [users, setUsers] = useState([])
   // ** Function to toggle sidebar
-  const toggleSidebar = () => setSidebarOpen(!sidebarOpen)
 
   // ** Get data on mount
   useEffect(() => {
-    if (isSuccessUsers) {
+    if (isSuccessClients) {
       const usersFormated = []
-      dataUsers.result.map((user) => {
+      dataClients.result.map((user) => {
         usersFormated.push({
           id: user.idUser,
           billing: 'billings',
@@ -249,14 +224,13 @@ const UsersList = () => {
           q: searchTerm,
           page: currentPage,
           perPage: rowsPerPage,
-          role: currentRole.value,
           status: currentStatus.value,
           users: usersFormated
         })
       )
     }
 
-  }, [dispatch, store.data.length, sort, sortColumn, currentPage, dataUsers])
+  }, [dispatch, store.data.length, sort, sortColumn, currentPage, dataClients])
 
   // ** Function in get data on page change
   const handlePagination = page => {
@@ -267,7 +241,6 @@ const UsersList = () => {
         q: searchTerm,
         perPage: rowsPerPage,
         page: page.selected + 1,
-        role: currentRole.value,
         status: currentStatus.value,
         users
       })
@@ -285,7 +258,6 @@ const UsersList = () => {
         q: searchTerm,
         perPage: value,
         page: currentPage,
-        role: currentRole.value,
         status: currentStatus.value,
         users
       })
@@ -301,23 +273,6 @@ const UsersList = () => {
         sort,
         q: val,
         sortColumn,
-        page: currentPage,
-        perPage: rowsPerPage,
-        role: currentRole.value,
-        status: currentStatus.value,
-        users
-      })
-    )
-  }
-
-  const handleRole = role => {
-    setCurrentRole(role)
-    dispatch(
-      getData({
-        sort,
-        sortColumn,
-        q: searchTerm,
-        role: role.value,
         page: currentPage,
         perPage: rowsPerPage,
         status: currentStatus.value,
@@ -336,7 +291,6 @@ const UsersList = () => {
         page: currentPage,
         status: status.value,
         perPage: rowsPerPage,
-        role: currentRole.value,
         users
       })
     )
@@ -368,7 +322,6 @@ const UsersList = () => {
   // ** Table data to render
   const dataToRender = () => {
     const filters = {
-      role: currentRole.value,
       status: currentStatus.value,
       q: searchTerm
     }
@@ -396,13 +349,11 @@ const UsersList = () => {
         q: searchTerm,
         page: currentPage,
         perPage: rowsPerPage,
-        role: currentRole.value,
         status: currentStatus.value,
         users
       })
     )
   }
-  console.log("Role actual:", currentRole)
   return (
     <Fragment>
       <Card className='overflow-hidden'>
@@ -428,7 +379,6 @@ const UsersList = () => {
                 handleFilter={handleFilter}
                 handlePerPage={handlePerPage}
                 handleRole={handleRole}
-                currentRole={currentRole}
                 handleStatus={handleStatus}
                 currentStatus={currentStatus}
                 toggleSidebar={toggleSidebar}
@@ -438,7 +388,6 @@ const UsersList = () => {
         </div>
       </Card>
 
-      <Sidebar open={sidebarOpen} toggleSidebar={toggleSidebar} />
     </Fragment>
   )
 }
