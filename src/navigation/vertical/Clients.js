@@ -11,7 +11,7 @@ export default [
     icon: <Users size={12} />,
     action: 'read',
     resource: 'ACL',
-    navLink: 'apps/invoice/list/'
+    navLink: 'apps/client/list/'
   },
   {
     id: 'listpet',

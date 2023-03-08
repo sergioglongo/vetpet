@@ -17,12 +17,6 @@ export default [
         navLink: '/apps/user/list'
       },
       {
-        id: 'viewUser',
-        title: 'Ver',
-        icon: <UserCheck size={12} />,
-        navLink: '/apps/user/view'
-      },
-      {
         id: 'roles-permissions',
         title: 'Roles y Permisos',
         icon: <Shield size={20} />,

@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom'
 
 const Chat = lazy(() => import('../../views/apps/chat'))
 const Todo = lazy(() => import('../../views/apps/todo'))
+const Client = lazy(() => import('../../views/apps/client/list'))
 const Email = lazy(() => import('../../views/apps/email'))
 const Calendar = lazy(() => import('../../views/apps/calendar'))
 
@@ -67,6 +68,14 @@ const AppRoutes = [
     meta: {
       appLayout: true,
       className: 'todo-application'
+    }
+  },  
+  {
+    element: <Client />,
+    path: '/apps/client',
+    meta: {
+      appLayout: true,
+      className: 'client-application'
     }
   },
   {
